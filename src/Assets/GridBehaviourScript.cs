@@ -57,6 +57,7 @@ public class GridBehaviourScript : MonoBehaviour
         // 追加：セルの値を保存する
         unit_script.cellX_ = cellX;
         unit_script.cellY_ = cellY;
+
         // 追加：現在のセルの状態に応じて明るさを切り替える
         unit_script.SetLighting(is_lighting[cellX, cellY]);
 
@@ -82,6 +83,7 @@ public class GridBehaviourScript : MonoBehaviour
             unit_script.next_.GetComponent<SphereBehaviourScript>().prev_ = unit_script.prev_;
         }
 
+        //nextとprevは双方向リストのデータ
         unit_script.next_ = null;
         unit_script.prev_ = null;
     }
@@ -91,7 +93,20 @@ public class GridBehaviourScript : MonoBehaviour
     {
         SphereBehaviourScript unit_script = unit.GetComponent<SphereBehaviourScript>();
 
-        if (unit_script.next_ != unit_script.prev_)
+        //今いるセルの位置
+        int cellX = calcCell(unit.transform.position.x);
+        int cellY = calcCell(unit.transform.position.z);
+
+        //直前のセルの位置
+        int oldCellX = unit_script.cellX_;
+        int oldCellY = unit_script.cellY_;
+
+        //セルが変わらなければ、処理を終え、そうでなければ、処理を行う
+        if (oldCellX == cellX && oldCellY == cellY)
+        {
+            return;
+        }
+        else 
         {
             //古いセルの球を削除する
             remove(unit);
