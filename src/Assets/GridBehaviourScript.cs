@@ -83,16 +83,23 @@ public class GridBehaviourScript : MonoBehaviour
 
         unit_script.next_ = null;
         unit_script.prev_ = null;
-        
-        //新しいセルに球を加える
-        add(unit);
     }
 
     // 動いたので、セルをまたげばセルを変える
     public void updatePosition(GameObject unit)
     {
-        //古いセルの球を削除する
-        remove(unit);
+        SphereBehaviourScript unit_script = unit.GetComponent<SphereBehaviourScript>();
+        if (unit_script.next_ != unit_script.prev_)
+        {
+            //古いセルの球を削除する
+            remove(unit);
+            //新しいセルに球を加える
+            add(unit);
+        }
+        else
+        {
+            return;
+        }
     }
 
 
