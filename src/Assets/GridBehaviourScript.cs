@@ -80,7 +80,6 @@ public class GridBehaviourScript : MonoBehaviour
         {
             unit_script.next_.GetComponent<SphereBehaviourScript>().prev_ = unit_script.prev_;
         }
-
         unit_script.next_ = null;
         unit_script.prev_ = null;
     }
@@ -88,7 +87,10 @@ public class GridBehaviourScript : MonoBehaviour
     // 動いたので、セルをまたげばセルを変える
     public void updatePosition(GameObject unit)
     {
-        // ■実装してみよう！
+        //古いセルの球を削除する
+        remove(unit);
+        //新しいセルに球を加える
+        add(unit);
     }
 
 
@@ -101,7 +103,7 @@ public class GridBehaviourScript : MonoBehaviour
             unit_script.SetLighting(on_off);
 
             unit = unit_script.next_;
-         }
+        }
     }
 
     // Update is called once per frame
