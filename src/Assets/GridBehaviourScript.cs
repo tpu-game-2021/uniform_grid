@@ -49,7 +49,7 @@ public class GridBehaviourScript : MonoBehaviour
         unit_script.next_ = cells_[cellX, cellY];
         cells_[cellX, cellY] = unit;
 
-        if(!ReferenceEquals(unit_script.next_, null))
+        if (!ReferenceEquals(unit_script.next_, null))
         {
             unit_script.next_.GetComponent<SphereBehaviourScript>().prev_ = unit;
         }
@@ -80,8 +80,12 @@ public class GridBehaviourScript : MonoBehaviour
         {
             unit_script.next_.GetComponent<SphereBehaviourScript>().prev_ = unit_script.prev_;
         }
+
         unit_script.next_ = null;
         unit_script.prev_ = null;
+        
+        //新しいセルに球を加える
+        add(unit);
     }
 
     // 動いたので、セルをまたげばセルを変える
@@ -89,8 +93,6 @@ public class GridBehaviourScript : MonoBehaviour
     {
         //古いセルの球を削除する
         remove(unit);
-        //新しいセルに球を加える
-        add(unit);
     }
 
 
@@ -116,7 +118,7 @@ public class GridBehaviourScript : MonoBehaviour
                 bool b = (x == playerX_ && y == playerY_);// プレイヤーのセルを明るくする
 
                 // 状態が変わったらその中のオブジェックとの状態を変更する
-                if(is_lighting[x, y] != b)
+                if (is_lighting[x, y] != b)
                 {
                     is_lighting[x, y] = b;
                     handleCell(cells_[x, y], b);
@@ -131,3 +133,4 @@ public class GridBehaviourScript : MonoBehaviour
         playerY_ = calcCell(z);
     }
 }
+
