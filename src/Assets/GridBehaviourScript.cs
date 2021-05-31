@@ -76,6 +76,7 @@ public class GridBehaviourScript : MonoBehaviour
         {
             cells_[cellX, cellY] = unit_script.next_;
         }
+
         if (!ReferenceEquals(unit_script.next_, null))
         {
             unit_script.next_.GetComponent<SphereBehaviourScript>().prev_ = unit_script.prev_;
@@ -89,16 +90,13 @@ public class GridBehaviourScript : MonoBehaviour
     public void updatePosition(GameObject unit)
     {
         SphereBehaviourScript unit_script = unit.GetComponent<SphereBehaviourScript>();
+
         if (unit_script.next_ != unit_script.prev_)
         {
             //ŒÃ‚¢ƒZƒ‹‚Ì‹…‚ğíœ‚·‚é
             remove(unit);
             //V‚µ‚¢ƒZƒ‹‚É‹…‚ğ‰Á‚¦‚é
             add(unit);
-        }
-        else
-        {
-            return;
         }
     }
 
