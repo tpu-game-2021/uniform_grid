@@ -88,7 +88,22 @@ public class GridBehaviourScript : MonoBehaviour
     // 動いたので、セルをまたげばセルを変える
     public void updatePosition(GameObject unit)
     {
-        // ■実装してみよう！
+        //現在いるセルの位置
+        var currentCellX = calcCell(unit.transform.position.x);
+        var currentCellY = calcCell(unit.transform.position.z);
+
+        var unit_script = unit.GetComponent<SphereBehaviourScript>();
+
+        //前にいたセルの位置
+        var previousCellX = unit_script.cellX_;
+        var previousCellY = unit_script.cellY_;
+
+        //セルを移動していれば変更
+        if(currentCellX != previousCellX || currentCellY != previousCellY)
+        {
+            remove(unit);
+            add(unit);
+        }
     }
 
 
