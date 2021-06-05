@@ -5,16 +5,16 @@ using UnityEngine;
 
 public class GridBehaviourScript : MonoBehaviour
 {
-    // ’è”Œn
+    // å®šæ•°ç³»
     public const float CELL_SIZE = 6.5f * 10.0f;
-    const float CELL_OFFSET = 0.5f * CELL_SIZE;// ’Ç‰ÁFŒ´“_‚Í°‚Ì^‚ñ’†‚È‚Ì‚ÅŒ´“_‚ğ‚¸‚ç‚·
+    const float CELL_OFFSET = 0.5f * CELL_SIZE;// è¿½åŠ ï¼šåŸç‚¹ã¯åºŠã®çœŸã‚“ä¸­ãªã®ã§åŸç‚¹ã‚’ãšã‚‰ã™
     const int NUM_CELLS = 9;
 
-    // ƒZƒ‹‚ÉŠÖŒW‚·‚é‚à‚Ì
+    // ã‚»ãƒ«ã«é–¢ä¿‚ã™ã‚‹ã‚‚ã®
     GameObject[,] cells_ = new GameObject[NUM_CELLS, NUM_CELLS];
     bool[,] is_lighting = new bool[NUM_CELLS, NUM_CELLS];
 
-    // ƒvƒŒƒCƒ„[î•ñ
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æƒ…å ±
     int playerX_ = -1, playerY_ = -1;
 
     // Start is called before the first frame update
@@ -33,7 +33,7 @@ public class GridBehaviourScript : MonoBehaviour
     public int calcCell(float x)
     {
         int cell = (int)((float)NUM_CELLS * (x + CELL_OFFSET) / CELL_SIZE);
-        cell = Math.Min(Math.Max(cell, 0), NUM_CELLS - 1);        // ’Ç‰ÁF”ÍˆÍ‚ğ’´‚¦‚½‚çÅŠO‚É‚Æ‚Ç‚ß‚é
+        cell = Math.Min(Math.Max(cell, 0), NUM_CELLS - 1);        // è¿½åŠ ï¼šç¯„å›²ã‚’è¶…ãˆãŸã‚‰æœ€å¤–ã«ã¨ã©ã‚ã‚‹
 
         return cell;
     }
@@ -43,7 +43,7 @@ public class GridBehaviourScript : MonoBehaviour
         int cellX = calcCell(unit.transform.position.x);
         int cellY = calcCell(unit.transform.position.z);
 
-        // ƒZƒ‹‚ª“ü‚éƒŠƒXƒg‚Ì‘O‚ÉˆÊ’u‚É
+        // ã‚»ãƒ«ãŒå…¥ã‚‹ãƒªã‚¹ãƒˆã®å‰ã«ä½ç½®ã«
         SphereBehaviourScript unit_script = unit.GetComponent<SphereBehaviourScript>();
         unit_script.prev_ = null;
         unit_script.next_ = cells_[cellX, cellY];
@@ -54,10 +54,10 @@ public class GridBehaviourScript : MonoBehaviour
             unit_script.next_.GetComponent<SphereBehaviourScript>().prev_ = unit;
         }
 
-        // ’Ç‰ÁFƒZƒ‹‚Ì’l‚ğ•Û‘¶‚·‚é
+        // è¿½åŠ ï¼šã‚»ãƒ«ã®å€¤ã‚’ä¿å­˜ã™ã‚‹
         unit_script.cellX_ = cellX;
         unit_script.cellY_ = cellY;
-        // ’Ç‰ÁFŒ»İ‚ÌƒZƒ‹‚Ìó‘Ô‚É‰‚¶‚Ä–¾‚é‚³‚ğØ‚è‘Ö‚¦‚é
+        // è¿½åŠ ï¼šç¾åœ¨ã®ã‚»ãƒ«ã®çŠ¶æ…‹ã«å¿œã˜ã¦æ˜ã‚‹ã•ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
         unit_script.SetLighting(is_lighting[cellX, cellY]);
 
     }
@@ -85,10 +85,12 @@ public class GridBehaviourScript : MonoBehaviour
         unit_script.prev_ = null;
     }
 
-    // “®‚¢‚½‚Ì‚ÅAƒZƒ‹‚ğ‚Ü‚½‚°‚ÎƒZƒ‹‚ğ•Ï‚¦‚é
+    // å‹•ã„ãŸã®ã§ã€ã‚»ãƒ«ã‚’ã¾ãŸã’ã°ã‚»ãƒ«ã‚’å¤‰ãˆã‚‹
     public void updatePosition(GameObject unit)
     {
-        // ¡À‘•‚µ‚Ä‚İ‚æ‚¤I
+        // â– å®Ÿè£…ã—ã¦ã¿ã‚ˆã†ï¼
+        add(unit);
+        remove(unit);
     }
 
 
@@ -111,9 +113,9 @@ public class GridBehaviourScript : MonoBehaviour
         {
             for (int y = 0; y < NUM_CELLS; y++)
             {
-                bool b = (x == playerX_ && y == playerY_);// ƒvƒŒƒCƒ„[‚ÌƒZƒ‹‚ğ–¾‚é‚­‚·‚é
+                bool b = (x == playerX_ && y == playerY_);// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚»ãƒ«ã‚’æ˜ã‚‹ãã™ã‚‹
 
-                // ó‘Ô‚ª•Ï‚í‚Á‚½‚ç‚»‚Ì’†‚ÌƒIƒuƒWƒFƒbƒN‚Æ‚Ìó‘Ô‚ğ•ÏX‚·‚é
+                // çŠ¶æ…‹ãŒå¤‰ã‚ã£ãŸã‚‰ãã®ä¸­ã®ã‚ªãƒ–ã‚¸ã‚§ãƒƒã‚¯ã¨ã®çŠ¶æ…‹ã‚’å¤‰æ›´ã™ã‚‹
                 if(is_lighting[x, y] != b)
                 {
                     is_lighting[x, y] = b;
