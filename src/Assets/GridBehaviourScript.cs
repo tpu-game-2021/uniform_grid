@@ -89,6 +89,8 @@ public class GridBehaviourScript : MonoBehaviour
     public void updatePosition(GameObject unit)
     {
         // ¡À‘•‚µ‚Ä‚İ‚æ‚¤I
+        remove(unit);
+        add(unit);
     }
 
 
