@@ -89,8 +89,15 @@ public class GridBehaviourScript : MonoBehaviour
     public void updatePosition(GameObject unit)
     {
         // Å°é¿ëïÇµÇƒÇ›ÇÊÇ§ÅI
-    }
+        int cellX = calcCell(unit.transform.position.x);
+        int cellY = calcCell(unit.transform.position.z);
 
+        if (cells_[cellX, cellY] == cells_[playerX_, playerY_])
+        {
+            add(unit);
+            remove(unit);
+        }
+    }
 
     void handleCell(GameObject unit, bool on_off)
     {
@@ -101,7 +108,7 @@ public class GridBehaviourScript : MonoBehaviour
             unit_script.SetLighting(on_off);
 
             unit = unit_script.next_;
-         }
+        }
     }
 
     // Update is called once per frame
