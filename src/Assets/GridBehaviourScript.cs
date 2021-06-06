@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 
 public class GridBehaviourScript : MonoBehaviour
@@ -89,6 +90,8 @@ public class GridBehaviourScript : MonoBehaviour
     public void updatePosition(GameObject unit)
     {
         // Å°é¿ëïÇµÇƒÇ›ÇÊÇ§ÅI
+            add(unit);
+            remove(unit);
     }
 
 
