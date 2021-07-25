@@ -89,6 +89,20 @@ public class GridBehaviourScript : MonoBehaviour
     public void updatePosition(GameObject unit)
     {
         // Å°é¿ëïÇµÇƒÇ›ÇÊÇ§ÅI
+        SphereBehaviourScript unit_script = unit.GetComponent<SphereBehaviourScript>();
+
+        int cellX_now = calcCell(unit.transform.position.x);
+        int cellY_now = calcCell(unit.transform.position.z);
+
+        int cellX_old = unit_script.cellX_;
+        int cellY_old = unit_script.cellY_;
+
+        if (cellX_now != cellX_old || cellY_now != cellY_old)
+        {
+            remove(unit);
+            add(unit);
+        }
+         
     }
 
 
